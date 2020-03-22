@@ -25,11 +25,3 @@ class Board:
 
     def start(self):
         self.window.mainloop()
-
-# board = Board("TicTacToe", 100)
-# board.draw()
-# board.draw_text("o", 0, 0, "green")
-# board.draw_text("x", 1, 1, "red")
-# board.draw_text("x", 2, 2, "red")
-# print(board.field)
-# board.start()

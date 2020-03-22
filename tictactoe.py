@@ -1,4 +1,8 @@
 from board import Board
+from math import floor
+
+W_H = 100
+turn = "o"
 
 def check_win():
     global board
@@ -25,10 +29,22 @@ def check_win():
     if draw == True:
         print("It's a draw!")
 
-board = Board("TicTacToe", 100)
+def make_move(event):
+    global W_H, board, turn
+    x = floor(event.x/W_H)
+    y = floor(event.y/W_H)
+    if board.field[x][y] == "":
+        board.draw_text(turn, x, y, "black")
+        if turn == 'o':
+            turn = 'x'
+            print(f"It's player {turn}s turn.")
+        else:
+            turn = 'o'
+            print(f"It's player {turn}s turn.")
+    check_win()
+
+board = Board("TicTacToe", W_H)
 board.draw()
-board.draw_text("x", 2, 2, "red")
-board.draw_text("x", 2, 1, "red")
-board.draw_text("x", 2, 0, "red")
-check_win()
+board.platform.bind("<Button-1>", make_move)
+board.platform.focus_set()
 board.start()
