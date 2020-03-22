@@ -3,7 +3,7 @@ from minmax import TicTacToeAI
 from math import floor
 
 W_H = 100
-turn = "o"
+turn = "x"
 won = ''
 
 against_ai = False
@@ -21,7 +21,7 @@ def change_turn():
 
 def check_win():
     global board, won, against_ai, ai_role
-    field = board.field
+    field = board.field 
     for i in range(3):
         if field[i][0] == field[i][1] == field[i][2] and not field[i][0] == "":
             won = field[i][0]
@@ -51,7 +51,8 @@ def check_win():
         draw = False
     if draw:
         print("It's a draw!")
-        board.draw_field("orange")   
+        won = 'd'
+        board.draw_field("orange")
 
 def make_move(event):
     global W_H, board, turn, ai
@@ -75,15 +76,28 @@ def start_ai(event = None):
         print("Starting AI...")
         against_ai = True
         ai_role = turn
-        ai = TicTacToeAI(ai_role, 3)
+        ai = TicTacToeAI(ai_role, 2)
         board.field = ai.make_move(board.field)
         change_turn()
         board.draw_field("black")
         check_win()
 
+def new_game(event=None):
+    global board, turn, won, against_ai, ai_role
+    if not won == '':
+        print("Start New Game")
+        board.draw()
+        print(board.field)
+        turn = "o"
+        won = ''
+
+        against_ai = False
+        ai_role = ''
+
 board = Board("TicTacToe", W_H)
 board.draw()
 board.platform.bind("<Button-1>", make_move)
 board.platform.bind("<Return>", start_ai)
+board.platform.bind("<space>", new_game)
 board.platform.focus_set()
 board.start()

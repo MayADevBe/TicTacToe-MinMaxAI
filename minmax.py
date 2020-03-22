@@ -38,7 +38,36 @@ class TicTacToeAI:
             if field[2][0] == self.role:
                 return 1
             else:
-                return -1   
+                return -1
+
+        for i in range(3):
+            if (field[i][0] == field[i][1] and field[i][2] == "" and not field[i][0] == "") or (field[i][2] == field[i][1] and field[i][0] == "" and not field[i][2] == "") or (field[i][0] == field[i][2] and field[i][1] == "" and not field[i][0] == ""):
+                if field[i][0] == self.role or field[i][1] == self.role:
+                    return 0.5
+                else:
+                    return -0.5
+            elif (field[0][i] == field[1][i] and field[2][i] == "" and not field[0][i] == "") or (field[2][i] == field[1][i] and field[0][i] == "" and not field[2][i] == "") or (field[0][i] == field[2][i] and field[1][i] == "" and not field[0][i] == ""):
+                if field[0][i] == self.role or field[1][i] == self.role:
+                    return 0.5
+                else:
+                    return -0.5
+
+        if (field[0][0] == field[1][1] and field[2][2] == "" and not field[0][0] == "") or (field[2][2] == field[1][1] and field[0][0] == "" and not field[2][2] == "") or (field[0][0] == field[2][2] and field[1][1] == "" and not field[0][0] == ""):
+            if field[0][0] == self.role or field[1][1] == self.role:
+                return 0.5
+            else:
+                return -0.5
+        elif (field[0][2] == field[1][1] and field[2][0] == "" and not field[0][2] == "") or (field[2][0] == field[1][1] and field[0][2] == "" and not field[2][0] == "") or (field[0][2] == field[2][0] and field[1][1] == "" and not field[0][2] == ""):
+            if field[0][2] == self.role or field[1][1] == self.role:
+                return 0.5
+            else:
+                return -0.5
+        
+        if field[1][1] == self.role:
+            return 0.25
+        else:
+            return -0.25
+
         return 0  
 
     def get_possible_moves(self, move, max_player):
