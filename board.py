@@ -18,10 +18,17 @@ class Board:
                 self.field[i].append("")
                 self.platform.create_rectangle(i*self.width, j*self.width, (i+1)*self.width, (j+1)*self.width, fill="white")
         
-    def draw_text(self, text, i, j, color):
+    # def draw_text(self, text, i, j, color):
+    #     rndfont = 25
+    #     self.field[i][j] = text
+    #     self.platform.create_text((self.width/2)*((i*2)+1), (self.width/2)*((j*2)+1), text=text, font=('Pursia', rndfont) ,anchor="center", fill=color, tags=text)
+
+    def draw_field(self, color):
         rndfont = 25
-        self.field[i][j] = text
-        self.platform.create_text((self.width/2)*((i*2)+1), (self.width/2)*((j*2)+1), text=text, font=('Pursia', rndfont) ,anchor="center", fill=color, tags=text)
+        for i in range(3):
+            for j in range(3):
+                if not self.field[i][j] == "":
+                    self.platform.create_text((self.width/2)*((i*2)+1), (self.width/2)*((j*2)+1), text=self.field[i][j], font=('Pursia', rndfont) ,anchor="center", fill=color, tag=self.field[i][j])
 
     def start(self):
         self.window.mainloop()
