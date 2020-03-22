@@ -1,7 +1,6 @@
 from board import Board
 from minmax import TicTacToeAI
 from math import floor
-import time
 
 W_H = 100
 turn = "o"
@@ -24,21 +23,19 @@ def check_win():
     global board, won, against_ai, ai_role
     field = board.field
     for i in range(3):
-        #rows
         if field[i][0] == field[i][1] == field[i][2] and not field[i][0] == "":
             won = field[i][0]
-            print(f"{field[i][0]} wins!")
-        #columns
+            print(f"{field[i][0]} wins with column {i+1}!")
         elif field[0][i] == field[1][i] == field[2][i] and not field[0][i] == "":
             won = field[i][0]
-            print(f"{field[0][i]} wins!")
+            print(f"{field[0][i]} wins with row {i+1}!")
     #diagonals
     if field[0][0] == field[1][1] == field[2][2] and not field[0][0] == "":
         won = field[i][0]
-        print(f"{field[0][0]} wins!")
+        print(f"{field[0][0]} wins with diagonal!")
     elif field[0][2] == field[1][1] == field[2][0] and not field[2][0] == "":
         won = field[i][0]
-        print(f"{field[2][0]} wins!")
+        print(f"{field[2][0]} wins with diagonal!")
     
     if won == ai_role and against_ai:
         board.draw_field("red")
@@ -50,7 +47,8 @@ def check_win():
         for j in range(3):
             if field[i][j] == "":
                 draw = False
-    
+    if not won == '':
+        draw = False
     if draw:
         print("It's a draw!")
         board.draw_field("orange")   
@@ -66,7 +64,6 @@ def make_move(event):
             board.draw_field("black")
         check_win()
         if against_ai and ai_role==turn and won == "":
-            #time.sleep(0.5)
             board.field = ai.make_move(board.field)
             change_turn()
             board.draw_field("black")
@@ -75,9 +72,10 @@ def make_move(event):
 def start_ai(event = None):
     global against_ai, ai_role, ai, turn
     if not against_ai and won == "":
+        print("Starting AI...")
         against_ai = True
         ai_role = turn
-        ai = TicTacToeAI(ai_role, 9)
+        ai = TicTacToeAI(ai_role, 3)
         board.field = ai.make_move(board.field)
         change_turn()
         board.draw_field("black")

@@ -24,18 +24,18 @@ class TicTacToeAI:
                     return -1
             #columns
             elif field[0][i] == field[1][i] == field[2][i] and not field[0][i] == "":
-                if field[i][0] == self.role:
+                if field[0][i] == self.role:
                     return 1
                 else:
                     return -1
         #diagonals
         if field[0][0] == field[1][1] == field[2][2] and not field[0][0] == "":
-            if field[i][0] == self.role:
+            if field[0][0] == self.role:
                 return 1
             else:
                 return -1
         elif field[0][2] == field[1][1] == field[2][0] and not field[2][0] == "":
-            if field[i][0] == self.role:
+            if field[2][0] == self.role:
                 return 1
             else:
                 return -1   
